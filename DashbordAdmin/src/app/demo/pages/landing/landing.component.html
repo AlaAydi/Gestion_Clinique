@@ -1,0 +1,108 @@
+<div class="clinic-landing">
+
+  <!-- Navigation -->
+  <nav class="navbar" [class.scrolled]="scrolled">
+    <div class="container">
+      <div class="navbar-content">
+        <div class="navbar-brand">
+          <div class="logo"><i class="icon-activity"></i></div>
+          <span class="brand-name">ClinicPro</span>
+        </div>
+
+        <div class="navbar-menu desktop-menu">
+          <a (click)="scrollToSection('features')" class="nav-link">Fonctionnalités</a>
+          <a (click)="scrollToSection('pricing')" class="nav-link">Tarifs</a>
+          <a (click)="scrollToSection('contact')" class="nav-link">Contact</a>
+          <button class="btn btn-primary" (click)="onStartClick()">Inscription</button>
+          <button class="btn btn-outline" (click)="onLoginClick()">Connexion</button>
+        </div>
+
+        <button class="mobile-toggle" (click)="toggleMobileMenu()">
+          <i [class]="mobileMenuOpen ? 'icon-x' : 'icon-menu'"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" *ngIf="mobileMenuOpen">
+      <div class="mobile-menu-content">
+        <a (click)="scrollToSection('features')" class="mobile-link">Fonctionnalités</a>
+        <a (click)="scrollToSection('pricing')" class="mobile-link">Tarifs</a>
+        <a (click)="scrollToSection('contact')" class="mobile-link">Contact</a>
+        <button class="btn btn-primary btn-full" (click)="onStartClick()">Inscription</button>
+        <button class="btn btn-outline btn-full" (click)="onLoginClick()">Connexion</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="badge"><span>Solution N°1 en Tunisie</span></div>
+          <h1 class="hero-title">
+            Gérez votre clinique avec <span class="gradient-text">excellence</span>
+          </h1>
+          <p class="hero-description">
+            La plateforme tout-en-un pour moderniser la gestion de votre établissement médical.
+            Simple, sécurisée et performante.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary btn-large" (click)="onStartClick()">
+              Inscription
+              <i class="icon-chevron-right"></i>
+            </button>
+            <button class="btn btn-outline btn-large" (click)="onLoginClick()">
+              Connexion
+            </button>
+          </div>
+          <div class="hero-badges">
+            <div class="mini-badge">
+              <i class="icon-award text-warning"></i> Certifié ISO 27001
+            </div>
+            <div class="mini-badge">
+              <i class="icon-shield text-success"></i> RGPD Compliant
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="dashboard-card">
+            <div class="dashboard-header">
+              <h3>Tableau de Bord</h3>
+              <i class="icon-clock"></i>
+            </div>
+            <div class="stats-grid">
+              <div class="stat-card" *ngFor="let stat of stats">
+                <div class="stat-value">{{ stat.value }}</div>
+                <div class="stat-label">{{ stat.label }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Fonctionnalités Complètes</h2>
+        <p class="section-description">
+          Tout ce dont vous avez besoin pour gérer efficacement votre clinique en un seul endroit
+        </p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" *ngFor="let feature of features">
+          <div class="feature-icon"><i [class]="'icon-' + feature.icon"></i></div>
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <p class="feature-description">{{ feature.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

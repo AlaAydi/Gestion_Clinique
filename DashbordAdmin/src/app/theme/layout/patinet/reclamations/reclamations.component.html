@@ -1,0 +1,196 @@
+<div class="reclamations-container">
+  <!-- Messages -->
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="btn-close" (click)="error = null"></button>
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" (click)="successMessage = null"></button>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <h2>Mes Réclamations</h2>
+    <button class="btn btn-primary" (click)="openCreateModal()">
+      <i class="fa fa-plus me-1"></i> Nouvelle réclamation
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters mb-4">
+    <div class="row">
+      <div class="col-md-4">
+        <label>Filtrer par statut</label>
+        <select [(ngModel)]="filterStatut" (change)="applyFilter()" class="form-control">
+          <option value="">Tous les statuts</option>
+          <option value="EN_ATTENTE">En attente</option>
+          <option value="EN_COURS">En cours</option>
+          <option value="RESOLU">Résolu</option>
+          <option value="FERME">Fermé</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des réclamations...</p>
+  </div>
+
+  <!-- Reclamations List -->
+  <div *ngIf="!loading" class="reclamations-list">
+    <div class="card mb-3 reclamation-card" *ngFor="let reclamation of reclamations" (click)="openDetailModal(reclamation)">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <div class="flex-grow-1">
+            <h5 class="card-title mb-1">{{ reclamation.sujet }}</h5>
+            <p class="text-muted mb-2">
+              <i class="fa fa-user-doctor me-1"></i>
+              Dr. {{ reclamation.doctor_nom }} {{ reclamation.doctor_prenom }}
+              <span *ngIf="reclamation.doctor_specialty" class="ms-2">
+                <i class="fa fa-stethoscope me-1"></i>{{ reclamation.doctor_specialty }}
+              </span>
+            </p>
+            <p class="card-text">{{ reclamation.message | slice:0:150 }}{{ reclamation.message.length > 150 ? '...' : '' }}</p>
+          </div>
+          <div class="badges-container ms-3">
+            <span class="badge" [ngClass]="getStatusClass(reclamation.statut)">
+              {{ getStatusLabel(reclamation.statut) }}
+            </span>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+          <small class="text-muted">
+            <i class="fa fa-calendar me-1"></i>
+            {{ reclamation.created_at | date:'dd/MM/yyyy HH:mm' }}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="reclamations.length === 0" class="text-center py-5">
+      <i class="fa fa-comments fa-3x text-muted mb-3"></i>
+      <p class="text-muted">Aucune réclamation trouvée</p>
+      <button class="btn btn-primary mt-3" (click)="openCreateModal()">
+        <i class="fa fa-plus me-1"></i> Créer une réclamation
+      </button>
+    </div>
+  </div>
+
+  <!-- Create Modal -->
+  <div class="modal-backdrop" *ngIf="showModal">
+    <div class="modal-box glass">
+      <div class="modal-header">
+        <div class="modal-icon">
+          <i class="fa fa-file-medical"></i>
+        </div>
+        <div class="modal-title">
+          <h2>Nouvelle Réclamation</h2>
+          <span class="subtitle">Déposer une réclamation</span>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group mb-3">
+          <label>Médecin concerné <span class="text-danger">*</span></label>
+          <select [(ngModel)]="newReclamation.doctor" class="form-control">
+            <option [value]="0">Sélectionner un médecin</option>
+            <option *ngFor="let doctor of doctors" [value]="doctor.id">
+              Dr. {{ doctor.prenom }} {{ doctor.nom }} - {{ doctor.specialty }}
+            </option>
+          </select>
+          <small *ngIf="loadingDoctors" class="text-muted">Chargement des médecins...</small>
+        </div>
+
+        <div class="form-group mb-3">
+          <label>Sujet <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            [(ngModel)]="newReclamation.sujet"
+            class="form-control"
+            placeholder="Sujet de la réclamation"
+            maxlength="255"
+          />
+        </div>
+
+        <div class="form-group mb-3">
+          <label>Message <span class="text-danger">*</span></label>
+          <textarea
+            rows="6"
+            [(ngModel)]="newReclamation.message"
+            class="form-control"
+            placeholder="Décrivez votre réclamation..."
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeModal()">Annuler</button>
+        <button
+          class="btn btn-primary"
+          (click)="createReclamation()"
+          [disabled]="submitting || !newReclamation.doctor || !newReclamation.sujet || !newReclamation.message"
+        >
+          <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+          {{ submitting ? 'Envoi...' : 'Soumettre' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="modal-backdrop" *ngIf="showDetailModal && selectedReclamation">
+    <div class="modal-box glass">
+      <div class="modal-header">
+        <div class="modal-icon">
+          <i class="fa fa-file-medical"></i>
+        </div>
+        <div class="modal-title">
+          <h2>Réclamation #{{ selectedReclamation.id }}</h2>
+          <span class="subtitle">{{ selectedReclamation.sujet }}</span>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="info-section mb-4">
+          <div class="info-row">
+            <span>Médecin concerné</span>
+            <strong>Dr. {{ selectedReclamation.doctor_nom }} {{ selectedReclamation.doctor_prenom }}</strong>
+          </div>
+          <div class="info-row" *ngIf="selectedReclamation.doctor_specialty">
+            <span>Spécialité</span>
+            <strong>{{ selectedReclamation.doctor_specialty }}</strong>
+          </div>
+          <div class="info-row">
+            <span>Date de création</span>
+            <strong>{{ selectedReclamation.created_at | date:'dd/MM/yyyy HH:mm' }}</strong>
+          </div>
+          <div class="info-row">
+            <span>Statut</span>
+            <strong>
+              <span class="badge" [ngClass]="getStatusClass(selectedReclamation.statut)">
+                {{ getStatusLabel(selectedReclamation.statut) }}
+              </span>
+            </strong>
+          </div>
+        </div>
+
+        <div class="content-section">
+          <h4>Message</h4>
+          <p class="content-text">{{ selectedReclamation.message }}</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>

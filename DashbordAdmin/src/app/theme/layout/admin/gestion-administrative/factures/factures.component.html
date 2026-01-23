@@ -1,0 +1,31 @@
+<div class="container">
+  <h2 class="title">📢 Gestion des Réclamations</h2>
+
+  <div class="grid">
+    <div class="card" *ngFor="let r of reclamations">
+      <div class="header">
+        <span class="badge" [ngClass]="r.statut">{{ r.statut }}</span>
+        <h3>{{ r.sujet }}</h3>
+      </div>
+
+      <p><strong>Patient :</strong> {{ r.patient_name }}</p>
+      <p><strong>Médecin :</strong> {{ r.doctor_name }}</p>
+      <p class="date">{{ r.created_at | date:'short' }}</p>
+
+      <button (click)="openDetails(r)">Voir détails</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" *ngIf="selected">
+  <div class="modal-box">
+    <button class="close" (click)="closeModal()">×</button>
+    <h3>{{ selected.sujet }}</h3>
+
+    <p><strong>Patient :</strong> {{ selected.patient_name }}</p>
+    <p><strong>Médecin :</strong> {{ selected.doctor_name }}</p>
+    <p><strong>Message :</strong></p>
+    <p class="message">{{ selected.message }}</p>
+  </div>
+</div>

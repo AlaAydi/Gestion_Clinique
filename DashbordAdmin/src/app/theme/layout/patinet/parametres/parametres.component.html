@@ -1,0 +1,123 @@
+<div class="parametres-container">
+  <!-- Messages -->
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="btn-close" (click)="error = null"></button>
+  </div>
+  
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" (click)="successMessage = null"></button>
+  </div>
+
+  <div class="header">
+    <h2>Parametres du Profil</h2>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-container mb-4">
+    <button class="tab-btn" [class.active]="activeTab === 'profile'" (click)="switchTab('profile')">
+      <i class="fa fa-user me-2"></i> Mon Profil
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'password'" (click)="switchTab('password')">
+      <i class="fa fa-lock me-2"></i> Mot de passe
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+  </div>
+
+  <!-- Profile Tab -->
+  <div *ngIf="!loading && activeTab === 'profile'" class="card">
+    <div class="card-header">
+      <h5 class="mb-0">Informations personnelles</h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="saveProfile()">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Prenom</label>
+            <input type="text" class="form-control" [(ngModel)]="profile.prenom" name="prenom">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Nom</label>
+            <input type="text" class="form-control" [(ngModel)]="profile.nom" name="nom">
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" [(ngModel)]="profile.email" name="email" disabled>
+            <small class="text-muted">L email ne peut pas etre modifie</small>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Telephone</label>
+            <input type="tel" class="form-control" [(ngModel)]="profile.telephone" name="telephone">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Age</label>
+            <input type="number" class="form-control" [(ngModel)]="profile.age" name="age">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Statut</label>
+            <input type="text" class="form-control" [(ngModel)]="profile.status" name="status" disabled>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Adresse</label>
+          <textarea class="form-control" rows="2" [(ngModel)]="profile.address" name="address"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Antecedents medicaux</label>
+          <textarea class="form-control" rows="3" [(ngModel)]="profile.antecedents" name="antecedents"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="saving">
+          <span *ngIf="saving" class="spinner-border spinner-border-sm me-1"></span>
+          {{ saving ? 'Enregistrement...' : 'Enregistrer les modifications' }}
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Password Tab -->
+  <div *ngIf="!loading && activeTab === 'password'" class="card">
+    <div class="card-header">
+      <h5 class="mb-0">Changer le mot de passe</h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="changePassword()">
+        <div class="mb-3">
+          <label class="form-label">Mot de passe actuel</label>
+          <input type="password" class="form-control" [(ngModel)]="passwordForm.current_password" name="current_password" required>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Nouveau mot de passe</label>
+          <input type="password" class="form-control" [(ngModel)]="passwordForm.new_password" name="new_password" required>
+          <small class="text-muted">Minimum 6 caracteres</small>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Confirmer le nouveau mot de passe</label>
+          <input type="password" class="form-control" [(ngModel)]="passwordForm.confirm_password" name="confirm_password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="changingPassword">
+          <span *ngIf="changingPassword" class="spinner-border spinner-border-sm me-1"></span>
+          {{ changingPassword ? 'Modification...' : 'Changer le mot de passe' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

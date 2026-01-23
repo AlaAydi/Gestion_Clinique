@@ -1,0 +1,134 @@
+<div class="calendar-container">
+  <!-- Messages -->
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="btn-close" (click)="error = null"></button>
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" (click)="successMessage = null"></button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des rendez-vous...</p>
+  </div>
+
+  <!-- Calendar -->
+  <div *ngIf="!loading">
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="showModal">
+    <div class="modal-box glass">
+
+      <!-- HEADER -->
+      <div class="modal-header">
+        <div class="modal-icon">
+          <i class="fa fa-calendar-check"></i>
+        </div>
+        <div class="modal-title">
+          <h2>{{ modalMode === 'view' ? 'Détails du rendez-vous' : 'Nouveau rendez-vous' }}</h2>
+          <span class="subtitle">Clinique médicale</span>
+        </div>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body">
+
+        <!-- VIEW MODE -->
+        <ng-container *ngIf="modalMode === 'view' && selectedEvent">
+          <div class="info-row"><span>Médecin</span> <strong>Dr. {{ selectedEvent.doctor_nom }}</strong></div>
+          <div class="info-row"><span>Date</span> <strong>{{ selectedEvent.start_time | date:'fullDate':'':'fr' }}</strong></div>
+          <div class="info-row"><span>Heure</span> <strong>{{ selectedEvent.start_time | date:'HH:mm' }} - {{ selectedEvent.end_time | date:'HH:mm' }}</strong></div>
+          <div class="info-row">
+            <span>Statut</span>
+            <strong>
+              <span class="badge" [ngClass]="getStatusClass(selectedEvent.statut || 'en_attente')">
+                {{ getStatusLabel(selectedEvent.statut || 'en_attente') }}
+              </span>
+            </strong>
+          </div>
+          <div class="info-card"><h4>Motif</h4><p>{{ selectedEvent.motif || 'Non spécifié' }}</p></div>
+
+          <!-- PAYMENT OPTIONS -->
+          <div *ngIf="selectedEvent.statut !== 'annulee' && selectedEvent.statut !== 'terminee'" class="payment-section">
+            <p>Payer le rendez-vous :</p>
+            <button class="btn btn-pay-cash" (click)="payCash(selectedEvent)">Payer en espèces</button>
+            <button class="btn btn-pay-online" (click)="payOnline(selectedEvent)">Payer en ligne</button>
+          </div>
+
+          <div *ngIf="selectedEvent.statut === 'terminee'">
+            <button class="btn btn-download" (click)="downloadInvoice(selectedEvent)">Télécharger la facture</button>
+          </div>
+        </ng-container>
+
+        <!-- ADD MODE -->
+        <ng-container *ngIf="modalMode === 'add'">
+          <div class="form-group">
+            <label>Date sélectionnée</label>
+            <input type="text" class="form-control" [value]="selectedDate" disabled>
+          </div>
+
+          <div class="form-group">
+            <label>Médecin</label>
+            <select [(ngModel)]="newAppointment.doctor_id" (change)="onDoctorChange()" class="form-control">
+              <option [value]="0">Choisir un médecin</option>
+              <option *ngFor="let d of doctors" [value]="d.id">Dr. {{ d.prenom }} {{ d.nom }} - {{ d.specialty }}</option>
+            </select>
+            <small *ngIf="loadingDoctors" class="text-muted">Chargement des médecins...</small>
+          </div>
+
+          <div class="form-group" *ngIf="newAppointment.doctor_id">
+            <label>Heure</label>
+            <select [(ngModel)]="newAppointment.time" (change)="checkAvailability()" class="form-control">
+              <option value="">Choisir un créneau</option>
+              <option *ngFor="let t of getAvailableTimes()" [value]="t">{{ t }}</option>
+            </select>
+            <small *ngIf="getAvailableTimes().length === 0 && selectedDoctorSchedule" class="text-warning">
+              Aucun créneau disponible pour cette date
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label>Motif de la consultation</label>
+            <textarea rows="3" [(ngModel)]="newAppointment.motif" class="form-control" placeholder="Décrivez le motif de votre consultation..."></textarea>
+          </div>
+
+          <div class="availability-error" *ngIf="conflict">
+            Ce créneau est déjà réservé
+          </div>
+
+         <div *ngIf="!conflict && newAppointment.doctor_id && newAppointment.time" class="mt-3 text-end">
+    <button class="btn btn-primary" (click)="addAppointment()" [disabled]="submitting">
+      <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+      Ajouter
+    </button>
+  </div>
+        </ng-container>
+
+      </div>
+<div class="modal-footer">
+  <button class="btn btn-close-modal" (click)="closeModal()">Fermer</button>
+
+  <button *ngIf="modalMode === 'view' && selectedEvent && canCancelAppointment(selectedEvent)"
+          class="btn btn-cancel"
+          (click)="cancelAppointment()"
+          [disabled]="submitting">
+    <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+    Annuler RDV
+  </button>
+
+  <div *ngIf="modalMode === 'view' && selectedEvent && !canCancelAppointment(selectedEvent)"
+       class="text-muted small">
+    <i class="fa fa-info-circle"></i>
+    {{ getCancelReasonMessage(selectedEvent) }}
+  </div>
+</div>
+    </div>
+  </div>
+</div>

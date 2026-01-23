@@ -1,0 +1,163 @@
+<div class="consultation-wrapper">
+  <!-- Messages -->
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+
+  <div class="header">
+    <h2>Gestion des Consultations</h2>
+    <button class="btn-add" (click)="openAddModal()">+ Nouvelle Consultation</button>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filters">
+    <select [formControl]="patientControl" (change)="applyFilter()">
+      <option value="">Tous les patients</option>
+      <option *ngFor="let p of patients" [value]="p.id">{{ p.prenom }} {{ p.nom }}</option>
+    </select>
+    <select [formControl]="doctorControl" (change)="applyFilter()">
+      <option value="">Tous les médecins</option>
+      <option *ngFor="let d of doctors" [value]="d.id">Dr. {{ d.prenom }} {{ d.nom }}</option>
+    </select>
+    <input type="date" [formControl]="dateControl" (change)="applyFilter()">
+    <button class="btn-reset" (click)="resetFilters()">Réinitialiser</button>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="loading">Chargement...</div>
+
+  <!-- Table des consultations -->
+  <div class="table-wrapper" *ngIf="!loading">
+    <table>
+      <thead>
+        <tr>
+          <th>Patient</th>
+          <th>Médecin</th>
+          <th>Date & Heure</th>
+          <th>Fin</th>
+          <th>Motif</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of filteredConsultations">
+          <td>{{ c.patient_name || getPatientName(c.patient) }}</td>
+          <td>{{ c.doctor_name || getDoctorName(c.doctor) }}</td>
+          <td>{{ formatDateTime(c.start_time) }}</td>
+          <td>{{ formatDateTime(c.end_time) }}</td>
+          <td>{{ c.motif || '-' }}</td>
+          <td class="actions">
+            <button class="btn-edit" (click)="openEditModal(c)">Modifier</button>
+            <button class="btn-delete" (click)="deleteConsultation(c.id)">Supprimer</button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredConsultations.length === 0">
+          <td colspan="6" class="no-data">Aucune consultation trouvée</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal Ajouter -->
+<div class="modal" *ngIf="showAddModal">
+  <div class="modal-content">
+    <h3>Nouvelle Consultation</h3>
+    <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+    
+    <form [formGroup]="addForm" (ngSubmit)="addConsultation()">
+      <div class="form-group">
+        <label>Patient *</label>
+        <select formControlName="patient" required>
+          <option value="">Sélectionner un patient</option>
+          <option *ngFor="let p of patients" [value]="p.id">{{ p.prenom }} {{ p.nom }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Médecin *</label>
+        <select formControlName="doctor" required (change)="addForm.get('doctor')?.value ? null : null">
+          <option value="">Sélectionner un médecin</option>
+          <option *ngFor="let d of doctors" [value]="d.id">
+            Dr. {{ d.prenom }} {{ d.nom }} - {{ d.schedule || 'Horaires non définis' }}
+          </option>
+        </select>
+        <small class="schedule-info" *ngIf="addForm.get('doctor')?.value">
+          Horaires de travail: {{ getDoctorSchedule(addForm.get('doctor')?.value) }}
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Date *</label>
+        <input type="date" formControlName="date" required>
+      </div>
+
+      <div class="form-group">
+        <label>Heure *</label>
+        <input type="time" formControlName="time" required>
+      </div>
+
+      <div class="form-group">
+        <label>Motif</label>
+        <textarea formControlName="motif" rows="3" placeholder="Motif de la consultation..."></textarea>
+      </div>
+
+      <div class="modal-buttons">
+        <button type="submit" class="btn-save" [disabled]="!addForm.valid || loading">
+          {{ loading ? 'Création...' : 'Créer' }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="closeAddModal()">Annuler</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Modifier -->
+<div class="modal" *ngIf="showEditModal">
+  <div class="modal-content">
+    <h3>Modifier la Consultation</h3>
+    <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+    
+    <form [formGroup]="editForm" (ngSubmit)="updateConsultation()">
+      <div class="form-group">
+        <label>Patient *</label>
+        <select formControlName="patient" required>
+          <option *ngFor="let p of patients" [value]="p.id">{{ p.prenom }} {{ p.nom }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Médecin *</label>
+        <select formControlName="doctor" required>
+          <option *ngFor="let d of doctors" [value]="d.id">
+            Dr. {{ d.prenom }} {{ d.nom }} - {{ d.schedule || 'Horaires non définis' }}
+          </option>
+        </select>
+        <small class="schedule-info" *ngIf="editForm.get('doctor')?.value">
+          Horaires de travail: {{ getDoctorSchedule(editForm.get('doctor')?.value) }}
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Date *</label>
+        <input type="date" formControlName="date" required>
+      </div>
+
+      <div class="form-group">
+        <label>Heure *</label>
+        <input type="time" formControlName="time" required>
+      </div>
+
+      <div class="form-group">
+        <label>Motif</label>
+        <textarea formControlName="motif" rows="3"></textarea>
+      </div>
+
+      <div class="modal-buttons">
+        <button type="submit" class="btn-save" [disabled]="!editForm.valid || loading">
+          {{ loading ? 'Mise à jour...' : 'Enregistrer' }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="closeEditModal()">Annuler</button>
+      </div>
+    </form>
+  </div>
+</div>

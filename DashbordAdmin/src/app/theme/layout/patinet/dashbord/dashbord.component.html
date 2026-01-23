@@ -1,0 +1,174 @@
+<div class="container-fluid">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des statistiques...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{ error }}
+    <button class="btn btn-link" (click)="loadStats()">Réessayer</button>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div *ngIf="!loading && !error && stats">
+    <div class="row">
+      <div class="col-12">
+        <h4 class="mb-4">Bienvenue, {{ stats.patient_info.name }}</h4>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="card-title text-white">Total Consultations</h5>
+                <h2 class="text-white">{{ stats.overview.total_consultations }}</h2>
+              </div>
+              <div class="align-self-center">
+                <i class="feather icon-activity f-36"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="card text-white bg-success mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="card-title text-white">Consultations passées</h5>
+                <h2 class="text-white">{{ stats.overview.past_consultations }}</h2>
+              </div>
+              <div class="align-self-center">
+                <i class="feather icon-check-circle f-36"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="card text-white bg-warning mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="card-title text-white">RDV à venir</h5>
+                <h2 class="text-white">{{ stats.overview.upcoming_consultations_count }}</h2>
+              </div>
+              <div class="align-self-center">
+                <i class="feather icon-calendar f-36"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="card text-white bg-info mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="card-title text-white">Dossiers médicaux</h5>
+                <h2 class="text-white">{{ stats.overview.total_dossiers }}</h2>
+              </div>
+              <div class="align-self-center">
+                <i class="feather icon-folder f-36"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upcoming Consultations -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Prochains rendez-vous</h5>
+            <a routerLink="../mes-rendez-vous" class="btn btn-primary btn-sm">Voir tous les RDV</a>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Médecin</th>
+                    <th>Spécialité</th>
+                    <th>Date/Heure</th>
+                    <th>Motif</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let rdv of stats.upcoming_consultations">
+                    <td>{{ rdv.doctor }}</td>
+                    <td>{{ rdv.specialty }}</td>
+                    <td>{{ rdv.start_time | date:'dd/MM/yyyy HH:mm' }}</td>
+                    <td>{{ rdv.motif || 'Non spécifié' }}</td>
+                  </tr>
+                  <tr *ngIf="stats.upcoming_consultations.length === 0">
+                    <td colspan="4" class="text-center text-muted">
+                      Aucun rendez-vous à venir
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patient Info Card -->
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Mes informations</h5>
+          </div>
+          <div class="card-body">
+            <p><strong>Nom:</strong> {{ stats.patient_info.name }}</p>
+            <p><strong>Âge:</strong> {{ stats.patient_info.age || 'Non renseigné' }} ans</p>
+            <p><strong>Adresse:</strong> {{ stats.patient_info.address || 'Non renseignée' }}</p>
+            <p><strong>Statut:</strong> 
+              <span class="badge" [ngClass]="{'bg-success': stats.patient_info.status === 'Actif', 'bg-secondary': stats.patient_info.status !== 'Actif'}">
+                {{ stats.patient_info.status }}
+              </span>
+            </p>
+            <a routerLink="../parametres" class="btn btn-outline-primary">Modifier mes informations</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Actions rapides</h5>
+          </div>
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <a routerLink="../mes-rendez-vous" class="btn btn-primary">
+                <i class="feather icon-calendar me-2"></i> Prendre un rendez-vous
+              </a>
+              <a routerLink="../dossier-medicale" class="btn btn-outline-secondary">
+                <i class="feather icon-folder me-2"></i> Voir mes dossiers médicaux
+              </a>
+              <a routerLink="../paiement-factures" class="btn btn-outline-secondary">
+                <i class="feather icon-credit-card me-2"></i> Mes factures
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

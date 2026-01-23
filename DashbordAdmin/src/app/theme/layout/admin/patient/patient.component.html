@@ -1,0 +1,146 @@
+<div class="patient-container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h2 class="title">Liste des Patients</h2>
+    <button class="btn primary" (click)="openPatientModal()">+ Ajouter Patient</button>
+  </div>
+
+  <div class="patient-table-wrapper">
+    <table class="patient-table">
+      <thead>
+        <tr>
+          <th>Nom & Prénom</th>
+          <th>Email</th>
+          <th>Adresse</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of patients">
+          <td>{{ p.nom }} {{ p.prenom }}</td>
+          <td>{{ p.email }}</td>
+          <td>{{ p.address }}</td>
+          <td>
+            <span class="status" [class.active]="p.status==='Actif'" [class.inactive]="p.status==='Inactif'">
+              {{ p.status }}
+            </span>
+          </td>
+
+          <td>
+            <button class="btn small info" (click)="openPatientModal(p)">Modifier</button>
+            <button class="btn small danger" (click)="openDeleteConfirm(p)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-overlay" *ngIf="showViewModal">
+    <div class="modal-box">
+      <h3 class="modal-title">Dossier Médical</h3>
+      <p *ngIf="!selectedPatient?.medical_file" class="empty-file">Aucun dossier disponible.</p>
+      <iframe *ngIf="selectedPatient?.medical_file" [src]="safeFileUrl" class="file-preview"></iframe>
+      <button class="btn primary" (click)="closeView()">Fermer</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="showUploadModal">
+    <div class="modal-box">
+      <h3 class="modal-title">Déposer un dossier médical</h3>
+      <label class="custom-file-upload">
+        <input type="file" (change)="handleFileUpload($event)" />
+        Choisir un fichier
+      </label>
+      <div class="modal-buttons">
+        <button class="btn primary" (click)="saveFile()">Enregistrer</button>
+        <button class="btn neutral" (click)="closeUpload()">Annuler</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="showPatientModal">
+    <div class="modal-box form-modal">
+      <h3 class="modal-title">{{ selectedPatient ? 'Modifier Patient' : 'Ajouter Patient' }}</h3>
+
+      <form (ngSubmit)="savePatient()">
+
+        <div class="form-group">
+          <input type="text" [(ngModel)]="selectedPatientTemp.username" name="username" required />
+          <label>Username</label>
+        </div>
+
+        <div class="form-group">
+          <input type="text" [(ngModel)]="selectedPatientTemp.nom" name="nom" required />
+          <label>Nom</label>
+        </div>
+
+        <div class="form-group">
+          <input type="text" [(ngModel)]="selectedPatientTemp.prenom" name="prenom" required />
+          <label>Prénom</label>
+        </div>
+
+        <div class="form-group">
+          <input type="email" [(ngModel)]="selectedPatientTemp.email" name="email" required />
+          <label>Email</label>
+        </div>
+
+        <div class="form-group">
+          <input type="password" [(ngModel)]="selectedPatientTemp.password" name="password" [required]="!selectedPatient" />
+          <label>Mot de passe</label>
+        </div>
+
+        <div class="form-group">
+          <input type="number" [(ngModel)]="selectedPatientTemp.age" name="age" required />
+          <label>Age</label>
+        </div>
+
+        <div class="form-group">
+          <input type="text" [(ngModel)]="selectedPatientTemp.address" name="address" required />
+          <label>Adresse</label>
+        </div>
+
+        <div class="form-group">
+          <input type="text" [(ngModel)]="selectedPatientTemp.telephone" name="telephone" required />
+          <label>Téléphone</label>
+        </div>
+
+        <div class="form-group">
+          <textarea [(ngModel)]="selectedPatientTemp.antecedents" name="antecedents"></textarea>
+          <label>Antécédents</label>
+        </div>
+
+        <div class="form-group">
+          <select [(ngModel)]="selectedPatientTemp.status" name="status" required>
+            <option value="Actif">Actif</option>
+            <option value="Inactif">Inactif</option>
+          </select>
+          <label>Statut</label>
+        </div>
+
+        <div class="modal-buttons">
+          <button type="submit" class="btn primary">Enregistrer</button>
+          <button type="button" class="btn neutral" (click)="closePatientModal()">Annuler</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="showDeleteModal">
+    <div class="modal-box confirm-modal">
+      <div class="confirm-icon">⚠️</div>
+      <h3 class="modal-title">Êtes-vous sûr ?</h3>
+      <p class="confirm-message">
+        Voulez-vous vraiment supprimer <strong>{{ patientToDelete?.nom }} {{ patientToDelete?.prenom }}</strong> ?
+        <br>Cette action est irréversible.
+      </p>
+      <div class="modal-buttons">
+        <button class="btn danger" (click)="confirmDelete()">Oui, supprimer</button>
+        <button class="btn neutral" (click)="closeDeleteConfirm()">Annuler</button>
+      </div>
+    </div>
+  </div>
+
+</div>

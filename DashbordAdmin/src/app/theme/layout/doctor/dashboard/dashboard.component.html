@@ -1,0 +1,145 @@
+<div class="container-fluid">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des statistiques...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{ error }}
+    <button class="btn btn-link" (click)="loadStats()">Réessayer</button>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div *ngIf="!loading && !error && stats">
+    <div class="row">
+      <div class="col-12">
+        <h4 class="mb-4">Tableau de bord - Dr. {{ stats.doctor_info.prenom }} {{ stats.doctor_info.nom }}</h4>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="card-title text-white">Patients</h5>
+                <h2 class="text-white">{{ stats.overview.total_patients }}</h2>
+              </div>
+              <div class="align-self-center">
+                <i class="feather icon-users f-36"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="card text-white bg-success mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="card-title text-white">Consultations</h5>
+                <h2 class="text-white">{{ stats.overview.total_consultations }}</h2>
+              </div>
+              <div class="align-self-center">
+                <i class="feather icon-activity f-36"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="card text-white bg-warning mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="card-title text-white">Aujourd'hui</h5>
+                <h2 class="text-white">{{ stats.overview.consultations_today }}</h2>
+              </div>
+              <div class="align-self-center">
+                <i class="feather icon-calendar f-36"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="card text-white bg-info mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="card-title text-white">Cette semaine</h5>
+                <h2 class="text-white">{{ stats.overview.consultations_this_week }}</h2>
+              </div>
+              <div class="align-self-center">
+                <i class="feather icon-trending-up f-36"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upcoming Consultations -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Prochaines consultations</h5>
+            <a routerLink="../calendar" class="btn btn-primary btn-sm">Voir calendrier</a>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Patient</th>
+                    <th>Date/Heure</th>
+                    <th>Motif</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let consultation of stats.upcoming_consultations">
+                    <td>{{ consultation.patient }}</td>
+                    <td>{{ consultation.start_time | date:'dd/MM/yyyy HH:mm' }}</td>
+                    <td>{{ consultation.motif || 'Non spécifié' }}</td>
+                  </tr>
+                  <tr *ngIf="stats.upcoming_consultations.length === 0">
+                    <td colspan="3" class="text-center text-muted">
+                      Aucune consultation à venir
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doctor Info Card -->
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Informations du médecin</h5>
+          </div>
+          <div class="card-body">
+            <h4 class="mb-2">Dr. {{ stats.doctor_info.prenom }} {{ stats.doctor_info.nom }}</h4>
+            <p class="text-muted mb-3">{{ stats.doctor_info.specialty }}</p>
+            <p><strong>Horaires:</strong> {{ stats.doctor_info.schedule || 'Non renseigné' }}</p>
+            <a routerLink="../edit-profile" class="btn btn-outline-primary">Modifier le profil</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

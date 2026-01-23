@@ -1,0 +1,157 @@
+<div class="facture-container">
+  <!-- Messages -->
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="btn-close" (click)="error = null"></button>
+  </div>
+  
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" (click)="successMessage = null"></button>
+  </div>
+
+  <div class="header">
+    <h2>Mes Factures</h2>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="row mb-4" *ngIf="!loading">
+    <div class="col-md-4">
+      <div class="card bg-success text-white">
+        <div class="card-body">
+          <h5 class="card-title">Total Payé</h5>
+          <h3>{{ getTotalPaid() }} TND</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-danger text-white">
+        <div class="card-body">
+          <h5 class="card-title">Total Non Payé</h5>
+          <h3>{{ getTotalUnpaid() }} TND</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-info text-white">
+        <div class="card-body">
+          <h5 class="card-title">Nombre de Factures</h5>
+          <h3>{{ factures.length }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-bar mb-3" *ngIf="!loading">
+    <select [(ngModel)]="statusFilter" class="form-control" style="max-width: 200px;">
+      <option value="">Toutes les factures</option>
+      <option value="non_payee">Non payées</option>
+      <option value="payee">Payées</option>
+      <option value="en_attente">En attente</option>
+    </select>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des factures...</p>
+  </div>
+
+  <!-- Factures List -->
+  <div *ngIf="!loading" class="facture-list">
+    <div class="facture-card" *ngFor="let f of filteredFactures()">
+      <div class="facture-info">
+        <h3>Facture #{{ f.numero_facture }}</h3>
+        <p><strong>Description:</strong> {{ f.description || 'Non spécifié' }}</p>
+        <small>Date: {{ f.date_emission | date:'dd/MM/yyyy' }}</small>
+        <p class="montant mt-2"><strong>Montant: {{ f.montant }} TND</strong></p>
+        <span class="badge" [ngClass]="getStatusClass(f.statut)">
+          {{ getStatusLabel(f.statut) }}
+        </span>
+      </div>
+      <div class="facture-actions">
+        <button class="btn view" (click)="viewFacture(f)" title="Voir détails">
+          <i class="fa fa-eye"></i>
+        </button>
+        <button *ngIf="f.statut === 'EN_ATTENTE'" class="btn primary" (click)="payFacture(f)" title="Payer" [disabled]="paying">
+          <i class="fa fa-credit-card"></i> Payer
+        </button>
+        <button class="btn secondary" (click)="downloadFacture(f)" title="Télécharger">
+          <i class="fa fa-download"></i>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="filteredFactures().length === 0" class="empty-state">
+      <i class="fa fa-file-invoice fa-3x text-muted mb-3"></i>
+      <p>Aucune facture disponible.</p>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" *ngIf="showModal">
+    <div class="modal-box glass">
+      <div class="modal-header">
+        <h2>Détails de la Facture</h2>
+      </div>
+
+      <div class="modal-body" *ngIf="selectedFacture">
+        <div class="info-row">
+          <span>Numéro</span>
+          <strong>#{{ selectedFacture.numero_facture }}</strong>
+        </div>
+        <div class="info-row">
+          <span>Description</span>
+          <strong>{{ selectedFacture.description || 'Non spécifié' }}</strong>
+        </div>
+        <div class="info-row" *ngIf="selectedFacture.consultation">
+          <span>Consultation</span>
+          <strong>#{{ selectedFacture.consultation }}</strong>
+        </div>
+        <div class="info-row">
+          <span>Date d'émission</span>
+          <strong>{{ selectedFacture.date_emission | date:'dd/MM/yyyy HH:mm' }}</strong>
+        </div>
+        <div class="info-row">
+          <span>Date d'échéance</span>
+          <strong>{{ selectedFacture.date_echeance | date:'dd/MM/yyyy' }}</strong>
+        </div>
+        <div class="info-row">
+          <span>Montant</span>
+          <strong class="text-primary">{{ selectedFacture.montant }} TND</strong>
+        </div>
+        <div class="info-row">
+          <span>Statut</span>
+          <strong>
+            <span class="badge" [ngClass]="getStatusClass(selectedFacture.statut)">
+              {{ getStatusLabel(selectedFacture.statut) }}
+            </span>
+          </strong>
+        </div>
+        <div class="info-row" *ngIf="selectedFacture.date_paiement">
+          <span>Date de paiement</span>
+          <strong>{{ selectedFacture.date_paiement | date:'dd/MM/yyyy HH:mm' }}</strong>
+        </div>
+        
+        <div class="mt-4" *ngIf="selectedFacture.statut === 'EN_ATTENTE'">
+          <button class="btn primary w-100" (click)="payFacture(selectedFacture)" [disabled]="paying">
+            <span *ngIf="paying" class="spinner-border spinner-border-sm me-1"></span>
+            {{ paying ? 'Traitement...' : 'Payer maintenant' }}
+          </button>
+        </div>
+        
+        <div class="mt-3">
+          <button class="btn secondary w-100" (click)="downloadFacture(selectedFacture)">
+            <i class="fa fa-download me-2"></i> Télécharger la facture
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn ghost" (click)="closeModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>

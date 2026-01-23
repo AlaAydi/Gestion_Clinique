@@ -1,0 +1,180 @@
+<div class="doctor-container">
+
+  <!-- ===== HEADER ===== -->
+  <div class="header">
+    <h2 class="title">Liste des Médecins</h2>
+    <button class="btn primary" (click)="openDoctorModal()">
+      + Ajouter un médecin
+    </button>
+  </div>
+
+  <!-- ===== TABLE ===== -->
+  <div class="table-wrapper">
+    <table class="doctor-table">
+      <thead>
+        <tr>
+          <th>Médecin</th>
+          <th>Spécialité</th>
+          <th>Horaires</th>
+          <th>Téléphone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let d of doctors">
+          <!-- Doctor -->
+          <td class="doctor-info">
+            <img
+              [src]="d.image || 'assets/doctor.png'"
+              alt="doctor"
+            />
+            <span>Dr. {{ d.prenom }} {{ d.nom }}</span>
+          </td>
+
+          <!-- Specialty -->
+          <td>{{ d.specialty }}</td>
+
+          <!-- Schedule -->
+          <td>{{ d.schedule }}</td>
+
+          <!-- Phone -->
+          <td>{{ d.phone }}</td>
+
+          <!-- Actions -->
+          <td class="actions">
+            <button
+              class="btn small info"
+              (click)="openDoctorModal(d)"
+            >
+              Modifier
+            </button>
+
+            <button
+              class="btn small danger"
+              (click)="deleteDoctor(d.id)"
+            >
+              Supprimer
+            </button>
+          </td>
+        </tr>
+
+        <!-- Empty state -->
+        <tr *ngIf="doctors.length === 0">
+          <td colspan="5" class="empty">
+            Aucun médecin trouvé
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" *ngIf="showDoctorModal">
+  <div class="modal-box form-modal">
+
+    <h3 class="modal-title">
+      {{ selectedDoctor ? 'Modifier Médecin' : 'Ajouter Médecin' }}
+    </h3>
+
+    <form (ngSubmit)="saveDoctor()" #doctorForm="ngForm">
+
+      <!-- Nom -->
+      <div class="form-group">
+        <input
+          type="text"
+          [(ngModel)]="tempDoctor.nom"
+          name="nom"
+          required
+        />
+        <label>Nom</label>
+      </div>
+
+      <!-- Prénom -->
+      <div class="form-group">
+        <input
+          type="text"
+          [(ngModel)]="tempDoctor.prenom"
+          name="prenom"
+          required
+        />
+        <label>Prénom</label>
+      </div>
+
+      <!-- Spécialité -->
+      <div class="form-group">
+        <input
+          type="text"
+          [(ngModel)]="tempDoctor.specialty"
+          name="specialty"
+          required
+        />
+        <label>Spécialité</label>
+      </div>
+
+      <!-- Téléphone -->
+      <div class="form-group">
+        <input
+          type="text"
+          [(ngModel)]="tempDoctor.phone"
+          name="phone"
+          required
+        />
+        <label>Téléphone</label>
+      </div>
+
+      <!-- Horaires (format: Lun-Ven 9:00-17:00) -->
+      <div class="form-group">
+        <input
+          type="text"
+          [(ngModel)]="tempDoctor.schedule"
+          name="schedule"
+          required
+          placeholder="Ex: Lun-Ven 9:00-17:00"
+        />
+        <label>Horaires de travail</label>
+      </div>
+
+      <!-- Email (uniquement pour création) -->
+      <div class="form-group" *ngIf="!selectedDoctor">
+        <input
+          type="email"
+          [(ngModel)]="tempDoctor.email"
+          name="email"
+        />
+        <label>Email (optionnel)</label>
+      </div>
+
+      <!-- Image -->
+      <label class="custom-file-upload">
+        <input
+          type="file"
+          accept="image/*"
+          (change)="uploadImage($event)"
+        />
+        Charger une photo
+      </label>
+
+      <!-- Buttons -->
+      <div class="modal-buttons">
+        <button
+          class="btn primary"
+          type="submit"
+          [disabled]="doctorForm.invalid"
+        >
+          Enregistrer
+        </button>
+
+        <button
+          class="btn neutral"
+          type="button"
+          (click)="closeDoctorModal()"
+        >
+          Annuler
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

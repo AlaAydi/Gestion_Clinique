@@ -1,0 +1,110 @@
+<div class="calendar-container">
+  <!-- Debug info (supprimer en production) -->
+  <div class="alert alert-info" style="font-size: 12px;">
+    Debug: {{ doctors.length }} médecins, {{ patients.length }} patients chargés
+  </div>
+  
+  <!-- Messages -->
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert alert-danger" *ngIf="error && !showModal">{{ error }}</div>
+  
+  <!-- Loading -->
+  <div class="loading-overlay" *ngIf="loading && !showModal">
+    <span>Chargement...</span>
+  </div>
+
+  <!-- Calendrier -->
+  <full-calendar [options]="calendarOptions"></full-calendar>
+
+  <!-- Modal moderne pour ajouter/modifier un rendez-vous -->
+  <div class="modern-modal-backdrop" *ngIf="showModal">
+    <div class="modern-modal">
+      <h2 class="modal-title">{{ modalTitle }}</h2>
+
+      <!-- Erreur dans le modal -->
+      <div class="modal-error" *ngIf="error">{{ error }}</div>
+
+      <!-- Sélection du Patient -->
+      <div class="form-group">
+        <label>Patient *</label>
+        <select [(ngModel)]="selectedPatientId" class="modal-select" required>
+          <option [ngValue]="null">-- Sélectionner un patient --</option>
+          <option *ngFor="let p of patients" [ngValue]="p.id">
+            {{ p.nom_complet }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Sélection du Médecin -->
+      <div class="form-group">
+        <label>Médecin *</label>
+        <select [(ngModel)]="selectedDoctorId" class="modal-select" required>
+          <option [ngValue]="null">-- Sélectionner un médecin --</option>
+          <option *ngFor="let d of doctors" [ngValue]="d.id">
+            {{ d.nom_complet }} ({{ d.specialty }})
+          </option>
+        </select>
+        <small class="schedule-info" *ngIf="selectedDoctorId">
+          Horaires: {{ getDoctorSchedule(selectedDoctorId) }}
+        </small>
+      </div>
+
+      <!-- Date -->
+      <div class="form-group">
+        <label>Date *</label>
+        <input 
+          type="date" 
+          [(ngModel)]="selectedDate" 
+          class="modal-input"
+          required
+        />
+      </div>
+
+      <!-- Heure -->
+      <div class="form-group">
+        <label>Heure *</label>
+        <input 
+          type="time" 
+          [(ngModel)]="selectedTime" 
+          class="modal-input"
+          required
+        />
+      </div>
+
+      <!-- Motif -->
+      <div class="form-group">
+        <label>Motif</label>
+        <textarea 
+          [(ngModel)]="motif" 
+          class="modal-textarea"
+          placeholder="Motif de la consultation..."
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- Boutons -->
+      <div class="modal-buttons">
+        <button 
+          class="modern-btn primary" 
+          (click)="saveEvent()"
+          [disabled]="loading || !selectedPatientId || !selectedDoctorId"
+        >
+          {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+        </button>
+
+        <button
+          class="modern-btn danger"
+          *ngIf="modalAction === 'edit'"
+          (click)="deleteEvent()"
+          [disabled]="loading"
+        >
+          Supprimer
+        </button>
+
+        <button class="modern-btn neutral" (click)="closeModal()">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

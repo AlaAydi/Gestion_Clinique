@@ -1,0 +1,38 @@
+.role-cards {
+  text-align: center;
+
+  .role-card {
+    padding: 15px;
+    border: 2px solid #dee2e6;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    background: #fff;
+
+    i {
+      font-size: 26px;
+      color: #6c757d;
+      margin-bottom: 8px;
+    }
+
+    h5 {
+      font-size: 16px;
+      margin: 0;
+      color: #6c757d;
+    }
+
+    &:hover {
+      border-color: #0d6efd;
+      transform: translateY(-3px);
+    }
+
+    &.active {
+      border-color: #0d6efd;
+      background: #eaf3ff;
+
+      i, h5 {
+        color: #0d6efd;
+      }
+    }
+  }
+}

@@ -1,0 +1,214 @@
+<div class="patient-container">
+  <div class="header">
+    <h2 class="title">Patients du Docteur</h2>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des patients...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    {{ error }}
+    <button class="btn btn-link" (click)="loadPatients()">Réessayer</button>
+  </div>
+
+  <div class="patient-table-wrapper" *ngIf="!loading && !error">
+    <table class="patient-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+          <th>Consultations</th>
+          <th>Dossier Médical</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let p of patients" class="table-row">
+          <td>{{ p.prenom }} {{ p.nom }}</td>
+          <td>{{ p.email }}</td>
+          <td>{{ p.telephone || 'Non renseigné' }}</td>
+
+          <td>
+            <span class="badge bg-info">{{ p.nombre_consultations || 0 }} consultation(s)</span>
+          </td>
+
+          <td>
+            <button class="btn small primary" (click)="openFile(p)">Voir</button>
+            <button class="btn small neutral" (click)="uploadFile(p)">Déposer</button>
+          </td>
+
+<td class="actions-cell">
+  <button class="icon-btn info" (click)="openPatientModal(p)" title="Détails">
+<i class="fa-solid fa-info"></i>  </button>
+
+  <button class="icon-btn success" (click)="openNotes(p)" title="Notes">
+<i class="fa-solid fa-check"></i>  </button>
+
+  <button class="icon-btn warn" (click)="openMessages(p)" title="Messages">
+    <i class="fa fa-exclamation-circle"></i>
+  </button>
+
+  <button class="icon-btn danger" (click)="openClaims(p)" title="Réclamations">
+    <i class="fa fa-exclamation"></i>
+  </button>
+</td>
+
+        </tr>
+        <tr *ngIf="patients.length === 0">
+          <td colspan="6" class="text-center text-muted">Aucun patient trouvé</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showViewModal">
+  <div class="modal-box">
+    <h3 class="modal-title">Dossier Médical - {{ selectedPatient?.prenom }} {{ selectedPatient?.nom }}</h3>
+
+    <div *ngIf="patientDossiers.length === 0" class="empty-file">Aucun dossier disponible.</div>
+
+    <div *ngIf="patientDossiers.length > 0">
+      <ul class="list-group mb-3">
+        <li *ngFor="let dossier of patientDossiers" class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{ dossier.type_document }}</strong>
+            <p class="mb-0 small text-muted">{{ dossier.description }}</p>
+          </div>
+          <a *ngIf="dossier.fichier" [href]="dossier.fichier" target="_blank" class="btn btn-sm btn-primary">Télécharger</a>
+        </li>
+      </ul>
+    </div>
+
+    <iframe *ngIf="safeFileUrl" [src]="safeFileUrl" class="file-preview"></iframe>
+
+    <button class="btn primary" (click)="closeView()">Fermer</button>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showUploadModal">
+  <div class="modal-box">
+    <h3 class="modal-title">Déposer un dossier médical</h3>
+
+    <label class="custom-file-upload">
+      <input type="file" (change)="handleFileUpload($event)" />
+      Choisir un fichier
+    </label>
+
+    <div class="modal-buttons">
+      <button class="btn primary" (click)="saveFile()">Enregistrer</button>
+      <button class="btn neutral" (click)="closeUpload()">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showPatientModal">
+  <div class="modal-box form-modal">
+    <h3 class="modal-title">{{ selectedPatient ? 'Détails Patient' : 'Ajouter Patient' }}</h3>
+
+    <form (ngSubmit)="savePatient()">
+      <div class="form-group">
+        <input type="text" [(ngModel)]="selectedPatientTemp.prenom" name="prenom" required />
+        <label>Prénom</label>
+      </div>
+
+      <div class="form-group">
+        <input type="text" [(ngModel)]="selectedPatientTemp.nom" name="nom" required />
+        <label>Nom</label>
+      </div>
+
+      <div class="form-group">
+        <input type="email" [(ngModel)]="selectedPatientTemp.email" name="email" required />
+        <label>Email</label>
+      </div>
+
+      <div class="form-group">
+        <input type="text" [(ngModel)]="selectedPatientTemp.numero_telephone" name="numero_telephone" />
+        <label>Téléphone</label>
+      </div>
+
+      <div class="form-group">
+        <input type="text" [(ngModel)]="selectedPatientTemp.adresse" name="adresse" />
+        <label>Adresse</label>
+      </div>
+
+      <label class="custom-file-upload">
+        <input type="file" (change)="handleFileUpload($event)" />
+        Choisir un dossier médical
+      </label>
+
+      <div class="modal-buttons">
+        <button type="submit" class="btn primary">Enregistrer</button>
+        <button type="button" class="btn neutral" (click)="closePatientModal()">Annuler</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showNotesModal">
+  <div class="modal-box">
+    <h3 class="modal-title">Remarques pour {{ selectedPatient?.prenom }} {{ selectedPatient?.nom }}</h3>
+
+    <!-- Existing notes -->
+    <div *ngIf="patientDossiers.length > 0" class="mb-3">
+      <h6>Notes existantes:</h6>
+      <ul class="list-group">
+        <li *ngFor="let dossier of patientDossiers" class="list-group-item" [hidden]="dossier.type_document !== 'Notes'">
+          {{ dossier.description }}
+        </li>
+      </ul>
+    </div>
+
+    <textarea [(ngModel)]="notesContent" rows="6" placeholder="Ajouter une nouvelle note..."></textarea>
+
+    <div class="modal-buttons">
+      <button class="btn primary" (click)="saveNotes()">Enregistrer</button>
+      <button class="btn neutral" (click)="closeNotes()">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Messages -->
+<div class="modal-overlay" *ngIf="showMessagesModal">
+  <div class="modal-box">
+    <h3 class="modal-title">Messages avec {{ selectedPatient?.prenom }} {{ selectedPatient?.nom }}</h3>
+
+    <!-- Previous messages -->
+    <div *ngIf="patientMessages.length > 0" class="messages-list mb-3" style="max-height: 200px; overflow-y: auto;">
+      <div *ngFor="let msg of patientMessages" class="message-item p-2 mb-2 rounded" 
+           [ngClass]="{'bg-primary text-white': msg.expediteur_type === 'doctor', 'bg-light': msg.expediteur_type !== 'doctor'}">
+        <small class="d-block">{{ msg.date_envoi | date:'dd/MM/yyyy HH:mm' }}</small>
+        {{ msg.contenu }}
+      </div>
+    </div>
+
+    <textarea [(ngModel)]="messageContent" rows="4" placeholder="Écrire un message..."></textarea>
+
+    <div class="modal-buttons">
+      <button class="btn info" (click)="saveMessage()">Envoyer</button>
+      <button class="btn neutral" (click)="closeMessages()">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Réclamations -->
+<div class="modal-overlay" *ngIf="showClaimsModal">
+  <div class="modal-box">
+    <h3 class="modal-title">Réclamation</h3>
+
+    <textarea [(ngModel)]="claimContent" rows="6"></textarea>
+
+    <div class="modal-buttons">
+      <button class="btn danger" (click)="saveClaim()">Envoyer Réclamation</button>
+      <button class="btn neutral" (click)="closeClaims()">Fermer</button>
+    </div>
+  </div>
+</div>

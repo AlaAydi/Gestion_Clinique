@@ -1,0 +1,127 @@
+<div class="dossier-container">
+  <!-- Messages -->
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="btn-close" (click)="error = null"></button>
+  </div>
+  
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" (click)="successMessage = null"></button>
+  </div>
+
+  <div class="header">
+    <h2>Mes Dossiers Médicaux</h2>
+    <button class="btn primary" (click)="openAddModal()">
+      <i class="fa fa-plus me-1"></i> Ajouter un dossier
+    </button>
+  </div>
+
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="searchText" placeholder="Rechercher un dossier..." class="form-control" />
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des dossiers...</p>
+  </div>
+
+  <!-- Dossiers List -->
+  <div *ngIf="!loading" class="dossier-list">
+    <div class="dossier-card" *ngFor="let d of filteredDossiers()">
+      <div class="dossier-icon">
+        <i class="fa" [ngClass]="getFileIcon(d.type_document)"></i>
+      </div>
+      <div class="dossier-info">
+        <h3>{{ d.titre }}</h3>
+        <p>{{ d.description || 'Aucune description' }}</p>
+        <p><strong>Type:</strong> {{ d.type_document }}</p>
+        <small>Créé le {{ d.date_creation | date:'dd/MM/yyyy HH:mm' }}</small>
+      </div>
+      <div class="dossier-actions">
+        <button class="btn view" (click)="viewDossier(d)" title="Voir les détails">
+          <i class="fa fa-eye"></i>
+        </button>
+        <button class="btn primary" (click)="downloadFile(d)" title="Télécharger" *ngIf="d.fichier">
+          <i class="fa fa-download"></i>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="filteredDossiers().length === 0" class="empty-state">
+      <i class="fa fa-folder-open fa-3x text-muted mb-3"></i>
+      <p>Aucun dossier médical trouvé.</p>
+      <button class="btn btn-primary" (click)="openAddModal()">Ajouter votre premier dossier</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" *ngIf="showModal">
+    <div class="modal-box glass">
+      <div class="modal-header">
+        <h2>{{ modalMode === 'view' ? 'Détails du Dossier' : 'Ajouter un Dossier' }}</h2>
+      </div>
+
+      <div class="modal-body">
+        <!-- Add Mode -->
+        <ng-container *ngIf="modalMode === 'add'">
+          <div class="form-group">
+            <label>Titre <span class="text-danger">*</span></label>
+            <input type="text" [(ngModel)]="newDossier.titre" class="form-control" placeholder="Titre du document" />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea rows="3" [(ngModel)]="newDossier.description" class="form-control" placeholder="Description du document..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Type de document <span class="text-danger">*</span></label>
+            <select [(ngModel)]="newDossier.type_document" class="form-control">
+              <option value="">Choisir un type</option>
+              <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Fichier <span class="text-danger">*</span></label>
+            <input type="file" (change)="onFileChange($event)" class="form-control" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
+            <small class="text-muted">Formats acceptés: PDF, Images, Documents Word</small>
+          </div>
+        </ng-container>
+
+        <!-- View Mode -->
+        <ng-container *ngIf="modalMode === 'view' && selectedDossier">
+          <div class="info-row">
+            <span>Titre</span>
+            <strong>{{ selectedDossier.titre }}</strong>
+          </div>
+          <div class="info-row">
+            <span>Type</span>
+            <strong>{{ selectedDossier.type_document }}</strong>
+          </div>
+          <div class="info-row">
+            <span>Date de création</span>
+            <strong>{{ selectedDossier.date_creation | date:'dd/MM/yyyy HH:mm' }}</strong>
+          </div>
+          <div class="info-card" *ngIf="selectedDossier.description">
+            <h4>Description</h4>
+            <p>{{ selectedDossier.description }}</p>
+          </div>
+          <div class="mt-3" *ngIf="selectedDossier.fichier">
+            <button class="btn primary w-100" (click)="downloadFile(selectedDossier)">
+              <i class="fa fa-download me-2"></i> Télécharger le fichier
+            </button>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn ghost" (click)="closeModal()">Fermer</button>
+        <button *ngIf="modalMode === 'add'" class="btn primary" (click)="addDossier()" [disabled]="submitting">
+          <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+          {{ submitting ? 'Ajout...' : 'Ajouter' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
