@@ -57,7 +57,6 @@ export class NavRightComponent {
     this.chatMessage = !this.chatMessage;
   }
 
-  // Logout method
   logout(): void {
     this.authService.logout();
   }
