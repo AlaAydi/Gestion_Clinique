@@ -4,7 +4,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { EventApi, CalendarOptions } from '@fullcalendar/core';
+import { EventApi, CalendarOptions, EventInput } from '@fullcalendar/core';
 import { DoctorService } from '../../../../core/services/doctor/doctor.service';
 import { CalendarConsultation } from '../../../../models/doctor';
 
@@ -43,7 +43,11 @@ export class CalendarComponent implements OnInit {
       month: 'Mois',
       week: 'Semaine',
       day: 'Jour'
-    }
+    },
+    // Ajout de propriétés importantes
+    height: 'auto',
+    weekends: true,
+    dayMaxEvents: true
   };
 
   constructor(private doctorService: DoctorService) {}
@@ -58,43 +62,83 @@ export class CalendarComponent implements OnInit {
 
     this.doctorService.getCalendarConsultations().subscribe({
       next: (response) => {
+        console.log('Réponse API:', response); // Debug
+
         this.consultations = [];
 
-        Object.keys(response.consultations_by_date || {}).forEach(date => {
-          const dayConsultations = response.consultations_by_date[date];
-          dayConsultations.forEach((c: any) => {
-            this.consultations.push({
-              id: c.id,
-              patient_id: c.patient_id,
-              patient_nom: c.patient_nom,
-              patient_email: c.patient_email,
-              patient_telephone: c.patient_telephone,
-              date: date,
-              heure: c.heure,
-              motif: c.motif,
-              statut: c.statut
-            });
-          });
-        });
+        // Vérifier si la réponse contient des données
+        if (!response || !response.consultations_by_date) {
+          console.warn('Aucune consultation trouvée dans la réponse');
+          this.loading = false;
+          return;
+        }
 
-        // Map to FullCalendar events
-        this.calendarOptions.events = this.consultations.map(c => ({
-          id: c.id.toString(),
-          title: `${c.heure} - ${c.patient_nom}`,
-          start: `${c.date}T${c.heure}`,
-          backgroundColor: this.getStatusColor(c.statut),
-          borderColor: this.getStatusColor(c.statut),
-          extendedProps: {
-            consultation: c
+        Object.entries(response.consultations_by_date).forEach(
+          ([date, dayConsultations]: any) => {
+            if (Array.isArray(dayConsultations)) {
+              dayConsultations.forEach((c: any) => {
+                console.log('Consultation individuelle:', c); // Debug détaillé
+
+                this.consultations.push({
+                  id: c.id,
+                  patient_id: c.patient_id,
+                  patient_nom: c.patient_nom || c.patient_name || `Patient ${c.patient_id}`,
+                  patient_email: c.patient_email || c.email || '',
+                  patient_telephone: c.patient_telephone || c.phone || c.telephone || '',
+                  date,
+                  heure: c.heure || c.hour || '00:00',
+                  motif: c.motif || c.reason || 'Consultation',
+                  statut: c.statut || c.status || 'En attente'
+                });
+              });
+            }
           }
-        }));
+        );
+
+        console.log('Consultations traitées:', this.consultations); // Debug
+
+        // Créer les événements pour le calendrier
+        const events: EventInput[] = this.consultations
+          .filter(c => c.date && c.heure) // Filtrer les consultations avec date et heure valides
+          .map(c => {
+            // S'assurer du format correct de la date
+            const heureFormatted = c.heure.includes(':') ? c.heure : `${c.heure}:00`;
+            const eventDate = `${c.date}T${heureFormatted}`;
+
+            const patientName = c.patient_nom || `Patient ${c.patient_id}`;
+
+            console.log('Event créé:', {
+              date: eventDate,
+              title: `${c.heure} - ${patientName}`
+            }); // Debug
+
+            return {
+              id: c.id.toString(),
+              title: `${c.heure} - ${patientName}`,
+              start: eventDate,
+              backgroundColor: this.getStatusColor(c.statut),
+              borderColor: this.getStatusColor(c.statut),
+              textColor: '#ffffff',
+              extendedProps: {
+                consultation: c
+              }
+            };
+          });
+
+        console.log('Events créés:', events); // Debug
+
+        // Mise à jour IMPORTANTE : réassigner calendarOptions pour déclencher la détection
+        this.calendarOptions = {
+          ...this.calendarOptions,
+          events: events
+        };
 
         this.loading = false;
       },
       error: (err) => {
+        console.error('Erreur API:', err); // Debug
         this.error = 'Erreur lors du chargement du calendrier';
         this.loading = false;
-        console.error('Calendar load error:', err);
       }
     });
   }
