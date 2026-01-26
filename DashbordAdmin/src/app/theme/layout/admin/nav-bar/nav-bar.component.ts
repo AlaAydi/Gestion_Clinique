@@ -15,7 +15,6 @@ import { NavRightComponent } from './nav-right/nav-right.component';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
-  // public props
   menuClass: boolean;
   collapseStyle: string;
   windowWidth: number;
@@ -23,14 +22,12 @@ export class NavBarComponent {
   NavCollapse = output();
   NavCollapsedMob = output();
 
-  // constructor
   constructor() {
     this.menuClass = false;
     this.collapseStyle = 'none';
     this.windowWidth = window.innerWidth;
   }
 
-  // public method
   toggleMobOption() {
     this.menuClass = !this.menuClass;
     this.collapseStyle = this.menuClass ? 'block' : 'none';
