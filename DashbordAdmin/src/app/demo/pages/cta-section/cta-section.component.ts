@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-cta-section',
   imports: [CommonModule, FormsModule],
   templateUrl: './cta-section.component.html',
-  styleUrl: './cta-section.component.css'
+  styleUrl: './cta-section.component.scss'
 })
 export class CtaSectionComponent {
   isSubmitting = false;
