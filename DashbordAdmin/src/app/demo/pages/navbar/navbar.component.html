@@ -1,0 +1,41 @@
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <!-- Logo -->
+      <a href="/" class="logo">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
+          <path d="M20 10L20 30M10 20L30 20" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+              <stop offset="0%" stop-color="#0ea5e9"/>
+              <stop offset="100%" stop-color="#10b981"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">ClinicPro</span>
+      </a>
+
+      <!-- Desktop Menu -->
+      <ul class="nav-menu" [class.active]="isMenuOpen">
+        <li><a href="#accueil" (click)="closeMenu()">Accueil</a></li>
+        <li><a href="#fonctionnalites" (click)="closeMenu()">Fonctionnalités</a></li>
+        <li><a href="#apropos" (click)="closeMenu()">À Propos</a></li>
+        <li><a href="#contact" (click)="closeMenu()">Contact</a></li>
+      </ul>
+
+      <!-- CTA Buttons -->
+      <div class="nav-actions" [class.active]="isMenuOpen">
+        <a href="/chat" class="btn btn-secondary">Essayer le Chatbot</a>
+        <a href="#contact" class="btn btn-primary">Commencer</a>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="menu-toggle" (click)="toggleMenu()" [class.active]="isMenuOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</nav>

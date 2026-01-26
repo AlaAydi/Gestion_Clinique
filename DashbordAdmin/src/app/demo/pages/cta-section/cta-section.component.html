@@ -1,0 +1,97 @@
+<section class="cta" id="contact">
+  <div class="container">
+    <div class="cta-content glass-card">
+      <div class="cta-text">
+        <h2 class="animate-fadeInUp">Prêt à Transformer Votre Clinique ?</h2>
+        <p class="animate-fadeInUp" style="animation-delay: 0.1s;">
+          Rejoignez des centaines de professionnels de santé qui ont déjà fait le choix de l'excellence avec ClinicPro.
+          Commencez votre essai gratuit de 30 jours dès aujourd'hui, sans carte de crédit requise.
+        </p>
+      </div>
+
+      <form class="cta-form animate-fadeInUp" style="animation-delay: 0.2s;" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Nom Complet</label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name"
+              [(ngModel)]="formData.name"
+              placeholder="Dr. Jean Dupont"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Professionnel</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email"
+              [(ngModel)]="formData.email"
+              placeholder="jean.dupont@clinique.fr"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Téléphone</label>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone"
+              [(ngModel)]="formData.phone"
+              placeholder="+33 6 12 34 56 78"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="clinic">Nom de la Clinique</label>
+            <input 
+              type="text" 
+              id="clinic" 
+              name="clinic"
+              [(ngModel)]="formData.clinic"
+              placeholder="Clinique Santé Plus"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message (Optionnel)</label>
+          <textarea 
+            id="message" 
+            name="message"
+            [(ngModel)]="formData.message"
+            rows="4"
+            placeholder="Parlez-nous de vos besoins..."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-large" [disabled]="!contactForm.valid || isSubmitting">
+          <svg *ngIf="!isSubmitting" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 2L9 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18 2L12 18L9 11L2 8L18 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span *ngIf="!isSubmitting">Démarrer Mon Essai Gratuit</span>
+          <span *ngIf="isSubmitting">Envoi en cours...</span>
+        </button>
+
+        <p class="form-note">
+          ✓ Essai gratuit de 30 jours &nbsp;&nbsp;|&nbsp;&nbsp; ✓ Sans carte de crédit &nbsp;&nbsp;|&nbsp;&nbsp; ✓ Support dédié
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Background Decoration -->
+  <div class="cta-bg-decoration">
+    <div class="cta-circle cta-circle-1"></div>
+    <div class="cta-circle cta-circle-2"></div>
+  </div>
+</section>

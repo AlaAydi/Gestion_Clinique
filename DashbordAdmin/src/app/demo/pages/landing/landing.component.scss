@@ -80,13 +80,20 @@ $shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     box-shadow: $shadow-lg;
   }
 
-  .navbar-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 5rem;
-  }
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
 
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-left: auto;
+}
   .navbar-brand {
     display: flex;
     align-items: center;
