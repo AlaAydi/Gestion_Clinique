@@ -1,0 +1,6 @@
+{
+    "buildCommand": "npm install && npm run build",
+    "outputDirectory": "dist/gradient-able-free-angular-admin-template/browser",
+    "framework": "angular",
+    "installCommand": "npm install --force"
+}
