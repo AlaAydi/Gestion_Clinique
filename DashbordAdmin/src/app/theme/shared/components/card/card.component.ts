@@ -4,7 +4,7 @@ import { Component, Input, OnInit, inject, input } from '@angular/core';
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 
 // bootstrap import
-import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-card',
@@ -12,7 +12,6 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
   imports: [CommonModule],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
-  providers: [NgbDropdownConfig],
   animations: [
     trigger('collapsedCard', [
       state(
@@ -73,9 +72,8 @@ export class CardComponent implements OnInit {
 
   // constructor
   constructor() {
-    const config = inject(NgbDropdownConfig);
-
-    config.placement = 'bottom-right';
+    // const config = inject(NgbDropdownConfig);
+    // config.placement = 'bottom-right';
     this.customHeader = false;
     this.customDate = false;
     this.options = true;

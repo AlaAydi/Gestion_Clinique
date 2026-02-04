@@ -1,0 +1,570 @@
+
+> gradient-able-free-angular-admin-template@5.2.0 build
+> ng build
+
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+✔ Browser application bundle generation complete.
+[1m[33m
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 21, column 8 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/scss/settings/_custom-variables.scss:21:8:
+Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.merge instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+21 | $grays: map-merge(
+  (
+    '100': $gray-100,
+    '200': $gray-200,
+    '300': $gray-300,
+    '400': $gray-400,
+    '500': $gray-500,
+    '600': $gray-600,
+    '700': $gray-700,
+    '800': $gray-800,
+    '900': $gray-900
+  ),
+  $grays
+);
+
+
+src\scss\settings\_custom-variables.scss 22:9  @import
+src\styles.scss 32:9                           root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 26, column 8 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/styles.scss:26:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+26 | @import 'scss/themes/font/theme-font';
+
+
+src\styles.scss 27:9  root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 29, column 8 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/styles.scss:29:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+29 | @import 'node_modules/bootstrap/scss/functions';
+
+
+src\styles.scss 30:9  root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 30, column 8 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/styles.scss:30:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+30 | @import 'node_modules/bootstrap/scss/variables';
+
+
+src\styles.scss 31:9  root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 31, column 8 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/styles.scss:31:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+31 | @import 'scss/settings/custom-variables';
+
+
+src\styles.scss 32:9  root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 32, column 8 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/styles.scss:32:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+32 | @import 'scss/settings/theme-variables';
+
+
+src\styles.scss 33:9  root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 57, column 9 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/scss/settings/_custom-variables.scss:57:9:
+Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.merge instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+57 | $colors: map-merge(
+  (
+    'blue': $blue,
+    'indigo': $indigo,
+    'purple': $purple,
+    'pink': $pink,
+    'red': $red,
+    'orange': $orange,
+    'yellow': $yellow,
+    'green': $green,
+    'teal': $teal,
+    'cyan': $cyan,
+    'white': $white,
+    'gray': $gray-600,
+    'gray-dark': $gray-800
+  ),
+  $colors
+);
+
+
+src\scss\settings\_custom-variables.scss 58:10  @import
+src\styles.scss 32:9                            root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 87, column 15 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/scss/settings/_custom-variables.scss:87:15:
+Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.merge instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+87 | $theme-colors: map-merge(
+  (
+    'primary': $primary,
+    'secondary': $secondary,
+    'success': $success,
+    'info': $info,
+    'warning': $warning,
+    'danger': $danger,
+    'light': $light,
+    'dark': $dark
+  ),
+  $theme-colors
+);
+
+
+src\scss\settings\_custom-variables.scss 88:16  @import
+src\styles.scss 32:9                            root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 151, column 8 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/scss/settings/_custom-variables.scss:151:8:
+Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.merge instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+151 | $sizes: map-merge(
+  (
+    25: 25%,
+    50: 50%,
+    75: 75%,
+    100: 100%,
+    auto: auto
+  ),
+  $sizes
+);
+
+
+src\scss\settings\_custom-variables.scss 152:9  @import
+src\styles.scss 32:9                            root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 256, column 33 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/scss/settings/_custom-variables.scss:256:33:
+Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use list.join instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+256 | $embed-responsive-aspect-ratios: join(((21 9), (16 9), (4 3), (1 1)), $embed-responsive-aspect-ratios);
+
+
+src\scss\settings\_custom-variables.scss 257:34  @import
+src\styles.scss 32:9                             root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 498, column 27 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/scss/settings/_custom-variables.scss:498:27:
+lighten() is deprecated. Suggestions:
+
+color.scale($color, $lightness: 66.7539267016%)
+color.adjust($color, $lightness: 25%)
+
+More info: https://sass-lang.com/d/color-functions
+
+498 | $input-focus-border-color: lighten($component-active-bg, 25%);
+
+
+src\scss\settings\_custom-variables.scss 499:28  @import
+src\styles.scss 32:9                             root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 567, column 37 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/scss/settings/_custom-variables.scss:567:37:
+lighten() is deprecated. Suggestions:
+
+color.scale($color, $lightness: 93.4554973822%)
+color.adjust($color, $lightness: 35%)
+
+More info: https://sass-lang.com/d/color-functions
+
+567 | $custom-control-indicator-active-bg: lighten($component-active-bg, 35%);
+
+
+src\scss\settings\_custom-variables.scss 568:38  @import
+src\styles.scss 32:9                             root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 662, column 31 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/scss/settings/_custom-variables.scss:662:31:
+lighten() is deprecated. Suggestions:
+
+color.scale($color, $lightness: 93.4554973822%)
+color.adjust($color, $lightness: 35%)
+
+More info: https://sass-lang.com/d/color-functions
+
+662 | $custom-range-thumb-active-bg: lighten($component-active-bg, 35%);
+
+
+src\scss\settings\_custom-variables.scss 663:32  @import
+src\styles.scss 32:9                             root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 825, column 28 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/scss/settings/_custom-variables.scss:825:28:
+darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -34.4594594595%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+825 | $dropdown-link-hover-color: darken($gray-900, 5%);
+
+
+src\scss\settings\_custom-variables.scss 826:29  @import
+src\styles.scss 32:9                             root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+Deprecation Warning on line 931, column 20 of file:///C:/Users/Aydi%20Ala/Desktop/projet/DashbordAdmin/src/scss/settings/_custom-variables.scss:931:20:
+darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -3%)
+color.adjust($color, $lightness: -3%)
+
+More info: https://sass-lang.com/d/color-functions
+
+931 | $popover-header-bg: darken($popover-bg, 3%);
+
+
+src\scss\settings\_custom-variables.scss 932:21  @import
+src\styles.scss 32:9                             root stylesheet
+
+
+./src/styles.scss - Warning: Module Warning (from ./node_modules/sass-loader/dist/cjs.js):
+221 repetitive deprecation warnings omitted.
+Run in verbose mode to see all warnings.
+
+Warning: C:/Users/Aydi Ala/Desktop/projet/DashbordAdmin/src/app/theme/layout/admin/patient/patient.component.scss exceeded maximum budget. Budget 10.24 kB was not met by 2.61 kB with a total of 12.85 kB.
+
+Warning: C:\Users\Aydi Ala\Desktop\projet\DashbordAdmin\src\app\demo\pages\authentication\sign-in\sign-in.component.ts depends on 'sweetalert2'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+[39m[22m
+[1m[31m
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m22[0m:[93m15[0m - [91merror[0m[90m NG8001: [0m'ngb-progressbar' is not a known element:
+1. If 'ngb-progressbar' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+
+[7m22[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m22[0m:[93m32[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'type' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'type' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m22[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m22[0m:[93m73[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'value' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'value' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m22[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m33[0m:[93m15[0m - [91merror[0m[90m NG8001: [0m'ngb-progressbar' is not a known element:
+1. If 'ngb-progressbar' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+
+[7m33[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m33[0m:[93m32[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'type' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'type' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m33[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m33[0m:[93m73[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'value' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'value' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m33[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m44[0m:[93m15[0m - [91merror[0m[90m NG8001: [0m'ngb-progressbar' is not a known element:
+1. If 'ngb-progressbar' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+
+[7m44[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m44[0m:[93m32[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'type' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'type' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m44[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m44[0m:[93m73[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'value' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'value' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m44[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m55[0m:[93m15[0m - [91merror[0m[90m NG8001: [0m'ngb-progressbar' is not a known element:
+1. If 'ngb-progressbar' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+
+[7m55[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m55[0m:[93m32[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'type' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'type' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m55[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m55[0m:[93m73[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'value' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'value' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m55[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m66[0m:[93m15[0m - [91merror[0m[90m NG8001: [0m'ngb-progressbar' is not a known element:
+1. If 'ngb-progressbar' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+
+[7m66[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m66[0m:[93m32[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'type' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'type' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m66[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m66[0m:[93m73[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'value' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'value' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m66[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m77[0m:[93m15[0m - [91merror[0m[90m NG8001: [0m'ngb-progressbar' is not a known element:
+1. If 'ngb-progressbar' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+
+[7m77[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m77[0m:[93m32[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'type' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'type' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m77[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m77[0m:[93m73[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'value' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'value' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m77[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m88[0m:[93m15[0m - [91merror[0m[90m NG8001: [0m'ngb-progressbar' is not a known element:
+1. If 'ngb-progressbar' is an Angular component, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+
+[7m88[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m88[0m:[93m32[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'type' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'type' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m88[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: [96msrc/app/demo/dashboard/product-sale/product-sale.component.html[0m:[93m88[0m:[93m73[0m - [91merror[0m[90m NG8002: [0mCan't bind to 'value' since it isn't a known property of 'ngb-progressbar'.
+1. If 'ngb-progressbar' is an Angular component and it has 'value' input, then verify that it is included in the '@Component.imports' of this component.
+2. If 'ngb-progressbar' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@Component.schemas' of this component to suppress this message.
+3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@Component.schemas' of this component.
+
+[7m88[0m               <ngb-progressbar type="{{ progress.color }}" height="4px" [value]="progress.percentage"></ngb-progressbar>
+[7m  [0m [91m                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/app/demo/dashboard/product-sale/product-sale.component.ts[0m:[93m17[0m:[93m16[0m
+    [7m17[0m   templateUrl: './product-sale.component.html',
+    [7m  [0m [96m               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    Error occurs in the template of component ProductSaleComponent.
+
+
+Error: C:/Users/Aydi Ala/Desktop/projet/DashbordAdmin/src/app/theme/layout/admin/patient/patient.component.scss exceeded maximum budget. Budget 10.24 kB was not met by 2.61 kB with a total of 12.85 kB.
+
+[39m[22m

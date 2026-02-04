@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 
 // bootstrap import
-import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 // project import
 import { SharedModule } from 'src/app/theme/shared/shared.module';
@@ -16,7 +16,6 @@ import { AuthService } from 'src/app/demo/pages/authentication/services/auth.ser
   imports: [SharedModule, ChatUserListComponent, ChatMsgComponent],
   templateUrl: './nav-right.component.html',
   styleUrls: ['./nav-right.component.scss'],
-  providers: [NgbDropdownConfig],
   animations: [
     trigger('slideInOutLeft', [
       transition(':enter', [style({ transform: 'translateX(100%)' }), animate('300ms ease-in', style({ transform: 'translateX(0%)' }))]),

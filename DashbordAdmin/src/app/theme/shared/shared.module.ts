@@ -12,7 +12,7 @@ import 'hammerjs';
 import 'mousetrap';
 
 // bootstrap import
-import { NgbDropdownModule, NgbNavModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbDropdownModule, NgbNavModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -20,9 +20,6 @@ import { NgbDropdownModule, NgbNavModule, NgbModule } from '@ng-bootstrap/ng-boo
     FormsModule,
     ReactiveFormsModule,
     CardComponent,
-    NgbDropdownModule,
-    NgbNavModule,
-    NgbModule,
     NgScrollbarModule
   ],
   exports: [
@@ -30,11 +27,8 @@ import { NgbDropdownModule, NgbNavModule, NgbModule } from '@ng-bootstrap/ng-boo
     FormsModule,
     ReactiveFormsModule,
     CardComponent,
-    NgbModule,
-    NgbDropdownModule,
-    NgbNavModule,
     NgScrollbarModule
   ],
   declarations: []
 })
-export class SharedModule {}
+export class SharedModule { }
