@@ -33,7 +33,6 @@
     "@fullcalendar/interaction": "^6.1.19",
     "@fullcalendar/timegrid": "^6.1.19",
     "@popperjs/core": "2.11.8",
-    "angular-calendar": "^0.32.0",
     "angular-feather": "^6.5.1",
     "apexcharts": "3.49.2",
     "bootstrap": "5.3.3",
