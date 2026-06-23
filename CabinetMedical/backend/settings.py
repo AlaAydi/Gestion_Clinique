@@ -24,9 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-pl1xcpk24^#6&f51rumbk7)0-lg*b+&h)m8t-#o-b0yws^_65-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "alaaydi.pythonanywhere.com"
+]
 # hetha aamltou bch nqoul ily manych bch nekhou user par defaut le user te3y khater zedetou role
 AUTH_USER_MODEL = 'users.User'
 
@@ -79,11 +81,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+
 ]
 
 # Configuration CORS pour Angular
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
+    "https://gestion-clinique-git-main-aydialas-projects.vercel.app/",
     "http://127.0.0.1:4200",
 ]
 
