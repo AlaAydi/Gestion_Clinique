@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 // Interfaces pour les profils
 export interface AdminProfile {
@@ -42,11 +43,13 @@ export interface ChangePasswordData {
   confirm_password: string;
 }
 
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
-  private API_URL = 'http://127.0.0.1:8000/api/users';
+  private API_URL = `${environment.apiUrl}/api/users`;
 
   constructor(private http: HttpClient) {}
 

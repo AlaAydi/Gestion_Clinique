@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from 'src/environments/environment';
 // Interfaces pour le calendrier admin
 export interface CalendarConsultation {
   id: number;
@@ -58,7 +58,7 @@ export interface UpdateCalendarConsultation {
 })
 export class AdminCalendarService {
 
-  private API_URL = 'http://127.0.0.1:8000/api/Admin/calendar/';
+  private API_URL = `${environment.apiUrl}/api/Admin/calendar/`;
 
   constructor(private http: HttpClient) {}
 

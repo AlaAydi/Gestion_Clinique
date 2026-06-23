@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import {
   DoctorStats,
   DoctorPatient,
@@ -21,7 +22,7 @@ import {
 })
 export class DoctorService {
 
-  private BASE_URL = 'http://localhost:8000/api';
+  private BASE_URL = `${environment.apiUrl}/api/`;
 
   constructor(private http: HttpClient) {}
 
