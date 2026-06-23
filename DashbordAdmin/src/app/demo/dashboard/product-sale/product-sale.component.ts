@@ -18,7 +18,7 @@ interface ProgressBarItem {
   styleUrls: ['./product-sale.component.scss']
 })
 export class ProductSaleComponent {
-  // public method
+
   product_sale = [
     {
       title: 'Campaign date'
