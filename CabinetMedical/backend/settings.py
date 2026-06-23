@@ -9,10 +9,10 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import os
 from datetime import timedelta
 from pathlib import Path
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-pl1xcpk24^#6&f51rumbk7)0-lg*b+&h)m8t-#o-b0yws^_65-
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "alaaydi.pythonanywhere.com"
+    "localhost",
+    "127.0.0.1",
+    ".onrender.com"
 ]
 # hetha aamltou bch nqoul ily manych bch nekhou user par defaut le user te3y khater zedetou role
 AUTH_USER_MODEL = 'users.User'
@@ -81,14 +83,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
 
 ]
 
 # Configuration CORS pour Angular
 CORS_ALLOWED_ORIGINS = [
-    "https://gestion-clinique-git-main-aydialas-projects.vercel.app/",
-    "http://127.0.0.1:4200",
+    "https://gestion-clinique-git-main-aydialas-projects.vercel.app"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -137,14 +137,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'CliniqueMangement',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get("DATABASE_URL")
+    )
 }
 
 # Password validation
@@ -181,6 +176,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
