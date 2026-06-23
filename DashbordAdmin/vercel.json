@@ -1,6 +1,6 @@
 {
-    "buildCommand": "npm install && npm run build",
-    "outputDirectory": "dist/gradient-able-free-angular-admin-template/browser",
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
     "framework": "angular",
-    "installCommand": "npm install --force"
+    "installCommand": "npm install --legacy-peer-deps"
 }
